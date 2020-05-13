@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
+    <a class="navbar-brand" href="/questions">Dubiety Portal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input #tag (keyup.enter)="onEnter(tag.value)" placeholder="&#xF002; Search" class="form-control mr-sm-2 "
+                style="font-family:Arial, FontAwesome" title="Search based on Tags" />
+
+            <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search Based On Tags">
+            <button class="btn btn-outline-light my-2 my-sm-0" (click)="search()">Search</button> -->
+        </form>&nbsp;&nbsp;
+        <a class="navbar-brand" href="/login">Logout</a>
+    </div>
+</nav>

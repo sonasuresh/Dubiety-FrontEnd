@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<div class="content"><br />
+    <div class="container mt-5">
+        <h3 class="left">Questions</h3>
+
+
+        <div class="right">
+
+            <button type="button" (click)="askQues()" class="btn btn-info" title="Click to Create New Questions">Ask
+                Question
+            </button>
+        </div><br /><br />
+        <hr />
+        <div *ngFor="let post of posts; let i=index">
+            {{i+1}}.
+            <span class="container">
+                <a
+                    [routerLink]="['/question',post._id, post.posttitle.split(' ').join('-')]"><b>{{post.posttitle}}</b></a><br />
+                <span class="ml-4">&nbsp;&nbsp;{{post.postcontent}}</span><br />&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;<span class="ml-1" *ngFor="let tags of post.tags?.split(',')">
+                    <span class="badge badge-pill badge-info">{{tags}}</span>
+                </span>
+            </span>
+            <hr />
+        </div>
+    </div>

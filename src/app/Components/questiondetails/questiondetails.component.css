@@ -1,0 +1,72 @@
+div.content {
+    margin-left: 100px;
+    padding: 1px 16px;
+    height: 100px;
+  }
+
+    
+.margin-top{
+    margin-top:100px ;
+}
+.right{
+    float: right;
+}
+.left{
+    float: left; 
+    color:rgb(82, 180, 212)
+}
+.color{
+    color:rgb(82, 180, 212)
+}
+.align-right{
+    margin-left: 900px;
+}
+a {
+ color: black;
+ } 
+ i{
+    cursor: pointer;
+    color:rgb(82, 180, 212)
+
+}
+select {
+    width: 80px;
+}
+.align{
+    margin-left: 900px;
+}
+.delete{
+    color: red;
+  }
+  .deactivate{
+      color:rgb(241, 122, 11)
+  }
+  .edit{
+      color:rgb(54, 147, 184);
+  }
+  mark { 
+    background-color: lightskyblue;
+    color: black;
+  }
+  .shadow{
+    box-shadow: 5px 10px 18px grey;
+}
+tr:hover {
+    background-color: lightblue;
+    
+  }
+  .warningcolor{
+      color:brown
+  }
+  
+  
+.hover:hover{
+    background-color: lightblue;
+}
+.pointer{
+    cursor: pointer;
+}
+.jumbotron {
+    padding-top: 5%;
+    padding-bottom: 2%;
+  }

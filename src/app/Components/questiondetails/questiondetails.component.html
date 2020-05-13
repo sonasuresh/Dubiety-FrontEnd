@@ -1,0 +1,227 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<div class="content"><br />
+    <div *ngIf="SuccesspermissionFlag">
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">New Comment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form [formGroup]="commentForm">
+                            <div class="form-group">
+                                <label for="comment">Comment Content</label><br />
+                                <textarea id="comment" class="form-control" rows="4" cols="60"
+                                    formControlName="comment"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-info" (click)="saveComment()">Comment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="failurePermissionFlag">
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Sorry You Can't Comment.!You Should have a
+                            score more than
+                            10
+                            to comment! </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="replyPostModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Reply</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="card">
+                        <div class="card-header">
+                            Your Answer
+                        </div>
+                        <div class="card-body">
+                            <form [formGroup]="questionForm">
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input type="text" class="form-control" id="title" formControlName="title"
+                                        placeholder="eg:What is string interpolation in Angular?">
+                                </div>
+                                <div class="form-group">
+                                    <label>Body</label><br />
+                                    <small class="form-text text-muted">Give a detailed description about your
+                                        reply to this Question</small>
+                                    <textarea class="form-control" formControlName="description" id="description"
+                                        rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tags</label>
+                                    <tag-input class="form-control" formControlName="tags" [modelAsStrings]="true"
+                                        placeholder="eg:javascript,spring">
+                                    </tag-input>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" (click)="saveReply()">Post Reply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5 ml-5">
+        <div>
+            <div class="alert alert-info alert-dismissible fade show color ml-5"
+                *ngIf="createCommentSuccessMessageFlag">
+                <strong>Success!<span aria-expanded="false" class="test">Commented Successfully.!</span></strong>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show warningcolor ml-5"
+                *ngIf="createCommentFailureMessageFlag">
+
+                <strong>Error!<span aria-expanded="false" class="test">Can't Comment.!</span></strong>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div>
+                <div class="alert alert-info alert-dismissible fade show color"
+                    *ngIf="createQuestionSuccessMessageFlag">
+                    <strong>Success!<span aria-expanded="false" class="test">Replied Successfully.!</span></strong>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show warningcolor"
+                    *ngIf="createQuestionFailureMessageFlag">
+
+                    <strong>Error!<span aria-expanded="false" class="test">Can't Reply.!</span></strong>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+                <div class="alert alert-info alert-dismissible fade show color" *ngIf="voteSuccessFlag">
+                    <strong>Success!<span aria-expanded="false" class="test">Voted Successfully.!</span></strong>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show warningcolor" *ngIf="voteFailureFlag">
+
+                    <strong>Error!<span aria-expanded="false" class="test">Voting Failed.!</span></strong>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+            </div>
+            <div *ngFor="let post of postDetails; let i=index">
+                <h3 class="left">{{post.posttitle}}</h3>&nbsp;
+                <i style="padding-top: 1%;" title="Give a Reply Post" (click)="getCurrentPostId(post._id)"
+                    class="fa fa-reply" data-toggle="modal" data-target="#replyPostModalCenter" aria-hidden="true"></i>
+                <div class="right">
+                    <button type="button" class="btn btn-info" (click)="askQues()"
+                        title="Click to Create New Questions">Ask
+                        Question
+                    </button>
+                </div><br /><br />
+                <div>Asked On {{post.postdate|date}}</div>
+
+                <hr />
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <span class="lead"> {{post.postcontent}}
+                            <p style="margin-left: -50px;"><i class="fa fa-caret-up fa-2x" (click)="incUpvote(post._id)"
+                                    aria-hidden="true"></i></p>
+                            <p style="margin-left: -45px;"> {{Postupvotes}}
+                            </p>
+
+                            <p style="margin-left: -50px;"><i class="fa fa-caret-down fa-2x"
+                                    (click)="incDownvote(post._id)" aria-hidden="true"></i></p>
+
+
+                        </span>
+                    </div>
+                </div>
+
+                <span class="ml-1" *ngFor="let tags of post.tags?.split(',')">
+                    <span class="badge badge-pill badge-info">{{tags}}</span>
+                </span>
+
+
+                <br /><br />
+                <span class="badge badge-pill badge-light">Comments</span>&nbsp;<i title="add Comment"
+                    data-toggle="modal" data-target="#exampleModalCenter" class="fa fa-comment" aria-hidden="true"
+                    (click)="getCurrentPostId(post._id)"></i>
+
+                <br />
+
+                <div class="ml-4" *ngFor=" let comments of postComments;let i=index">
+                    {{comments.commentcontent}} - <span class="color">{{comments.username}}</span> &nbsp;<span
+                        style="color:grey">{{comments.commentdate|date}}</span>
+                    <hr />
+                </div>
+            </div>
+            <b> {{answersLength}} Answers</b><br />
+            <hr />
+            <div *ngFor="let replyPost of replyPosts;let i=index">
+                {{replyPost.posttitle}}<br /><br />
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <span class="lead"> {{replyPost.postcontent}}</span>
+                        <p style="margin-left: -50px;"><i class="fa fa-caret-up fa-2x"
+                                (click)="incUpvote(replyPost._id)" aria-hidden="true"></i></p>
+                        <p style="margin-left: -50px;">{{calculate(replyPost.votes)}}</p>
+                        <p style="margin-left: -50px;"><i class="fa fa-caret-down fa-2x"
+                                (click)="incDownvote(replyPost._id)" aria-hidden="true"></i></p>
+                    </div>
+                </div>
+
+                <span class="ml-1" *ngFor="let tags of replyPost.tags?.split(',')">
+                    <span class="badge badge-pill badge-info">{{tags}}</span>
+                </span>
+                <span class="color" style="margin-left:840px;">{{replyPost.username}} </span>&nbsp; <span
+                    style="color:grey">{{replyPost.postdate|date}}</span>
+
+                <br />
+
+                <br />
+                <span class="badge badge-pill badge-light">Comments</span>&nbsp;<i title="add Comment"
+                    data-toggle="modal" data-target="#exampleModalCenter" class="fa fa-comment" aria-hidden="true"
+                    (click)="getCurrentPostId(replyPost._id)"></i>
+                <div class="ml-4">
+                    <div *ngFor="let comments of replyPost.comments;let i=index">
+                        {{comments.commentcontent}} - <span class="color">{{comments.username}}</span>&nbsp;<span
+                            style="color:grey">{{comments.commentdate|date}}</span>
+                        <hr />
+                    </div>
+                </div>
+
+                <hr />
+            </div>
+        </div>
+    </div>

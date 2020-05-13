@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+
+<div class="content"><br /><br />
+    <div>
+        <div class="alert alert-info alert-dismissible fade show color" *ngIf="createQuestionSuccessMessageFlag">
+            <strong>Success!<span aria-expanded="false" class="test">Question Created Successfully.!</span></strong>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show warningcolor"
+            *ngIf="createQuestionFailureMessageFlag">
+
+            <strong>Error!<span aria-expanded="false" class="test">Question Creation Failed.!</span></strong>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <h4>Ask a Public Question</h4><br />
+        <div class="card">
+            <div class="card-header">
+                New Question
+            </div>
+            <div class="card-body">
+                <form [formGroup]="questionForm">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" id="title" formControlName="title"
+                            placeholder="eg:What is string interpolation in Angular?">
+                    </div>
+                    <div class="form-group">
+                        <label>Body</label><br />
+                        <small class="form-text text-muted">Give a detailed description about your
+                            question</small>
+                        <textarea class="form-control" formControlName="description" id="description"
+                            rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Tags</label>
+                        <tag-input class="form-control" formControlName="tags" [modelAsStrings]="true"
+                            placeholder="eg:javascript,spring">
+                        </tag-input>
+                    </div>
+                </form>
+            </div>
+
+        </div><br />
+        <button class="btn btn-info" (click)="save()">Post Your Question</button>
+    </div>
+
+</div>
